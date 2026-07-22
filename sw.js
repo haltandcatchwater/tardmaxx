@@ -1,5 +1,5 @@
 // Service Worker — caches app shell for offline use
-const CACHE = 'inquire-within-v1';
+const CACHE = 'tardmaxx-v1';
 const SHELL = [
   './index.html',
   './css/style.css',

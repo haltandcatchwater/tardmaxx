@@ -62,7 +62,7 @@ const ZOOM_WHEEL_FACTOR = 0.001;
 class MindMapData {
   constructor(title) {
     this.title = title || 'Untitled';
-    this.root = this._createNode('Inquire Within');
+    this.root = this._createNode('TardMaxx');
     this.autoLayoutEnabled = true;
     this.createdAt = new Date().toISOString();
     this.updatedAt = new Date().toISOString();
@@ -453,8 +453,8 @@ class SVGRenderer {
     // Render recursively
     this._renderNode(mindmap.root, positions, selectedId, mindmap);
 
-    // On fresh map with "Inquire Within", show the quote above the root
-    if (mindmap.root.text === 'Inquire Within' && mindmap.root.children.length === 0) {
+    // On fresh map with "TardMaxx", show the quote above the root
+    if (mindmap.root.text === 'TardMaxx' && mindmap.root.children.length === 0) {
       const rootPos = positions.get(mindmap.root.id);
       if (rootPos) {
         const quoteEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -1100,7 +1100,7 @@ class InteractionManager {
       this.app.selectNode(hitId);
       // Don't start drag on initial placeholder root — it auto-edits on click
       const isPlaceholderRoot = hitId === this.app.mindmap.root.id &&
-        this.app.mindmap.root.text === 'Inquire Within' &&
+        this.app.mindmap.root.text === 'TardMaxx' &&
         this.app.mindmap.root.children.length === 0;
       if (!isPlaceholderRoot) {
         this._startDrag(e, hitId);
@@ -1819,14 +1819,14 @@ class App {
       setTimeout(() => this._showWalkthrough(), 500);
     }
 
-    // Auto-edit root — "Inquire Within" with blinking cursor, clears on first input
+    // Auto-edit root — "TardMaxx" with blinking cursor, clears on first input
     setTimeout(() => {
       this.startInlineEdit(this.mindmap.root.id);
       const rootId = this.mindmap.root.id;
       setTimeout(() => {
         const div = document.querySelector('[data-editing-node-id="' + rootId + '"]');
-        if (div && div.textContent === 'Inquire Within') {
-          // Place cursor at the end of "Inquire Within"
+        if (div && div.textContent === 'TardMaxx') {
+          // Place cursor at the end of "TardMaxx"
           const range = document.createRange();
           range.setStartAfter(div.lastChild || div);
           range.collapse(true);
@@ -1835,7 +1835,7 @@ class App {
           sel.addRange(range);
           // One-time handler: clear placeholder on first interaction
           const clear = () => {
-            if (div.textContent === 'Inquire Within') div.textContent = '';
+            if (div.textContent === 'TardMaxx') div.textContent = '';
             div.removeEventListener('keydown', clear);
             div.removeEventListener('mousedown', clear);
           };
@@ -2050,19 +2050,19 @@ class App {
       const newEl = document.querySelector(`[data-node-id="${CSS.escape(id)}"]`);
       if (newEl) newEl.classList.add('selected');
     }
-    // Single-click on initial "Inquire Within" root → start editing, clears on input
-    if (id === this.mindmap.root.id && this.mindmap.root.text === 'Inquire Within' && this.mindmap.root.children.length === 0) {
+    // Single-click on initial "TardMaxx" root → start editing, clears on input
+    if (id === this.mindmap.root.id && this.mindmap.root.text === 'TardMaxx' && this.mindmap.root.children.length === 0) {
       setTimeout(() => {
         this.startInlineEdit(id);
         setTimeout(() => {
           const div = document.querySelector('[data-editing-node-id="' + id + '"]');
-          if (div && div.textContent === 'Inquire Within') {
+          if (div && div.textContent === 'TardMaxx') {
             const range = document.createRange();
             range.setStartAfter(div.lastChild || div);
             range.collapse(true);
             const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
             const clear = () => {
-              if (div.textContent === 'Inquire Within') div.textContent = '';
+              if (div.textContent === 'TardMaxx') div.textContent = '';
               div.removeEventListener('keydown', clear);
               div.removeEventListener('mousedown', clear);
             };
@@ -2433,7 +2433,7 @@ class App {
 
   _showNewMapDialog() {
     this.modalOverlay.classList.remove('hidden');
-    document.getElementById('modal-title').textContent = 'Inquire Within';
+    document.getElementById('modal-title').textContent = 'TardMaxx';
     document.getElementById('modal-body').innerHTML = `
       <p style="text-align:center;color:var(--text-secondary);font-size:13px;margin-bottom:12px;font-style:italic;">Let the retardmaxxing begin</p>
       <textarea id="ai-prompt" rows="3" placeholder="What do you want to explore?" style="width:100%;padding:12px;border:1px solid var(--border-color);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:14px;font-family:var(--font-sans);resize:vertical;line-height:1.5;"></textarea>
@@ -2750,9 +2750,9 @@ Rules: 3-5 children MAXIMUM. Text must be informative standalone synopses. Notes
 
   _showWalkthrough() {
     const steps = [
-      { emoji: '👋', title: 'Welcome to Inquire Within', text: 'A mind mapping tool for structuring thoughts and projects. <br><br><b>Without AI:</b> build trees, link files, export, save — a clean way to organize anything.<br><br><b>With AI:</b> add an API key in Settings, and every node becomes an AI endpoint. Click <b>&lt;</b> to expand branches, <b>🤿</b> for deep dives.' },
+      { emoji: '👋', title: 'Welcome to TardMaxx', text: 'A mind mapping tool for structuring thoughts and projects. <br><br><b>Without AI:</b> build trees, link files, export, save — a clean way to organize anything.<br><br><b>With AI:</b> add an API key in Settings, and every node becomes an AI endpoint. Click <b>&lt;</b> to expand branches, <b>🤿</b> for deep dives.' },
       { emoji: '🏗️', title: 'Your Command Center', text: 'Create, save, and manage mind maps from the left sidebar. Switch AI models at the bottom. No AI key? You can still do everything except AI expansion.' },
-      { emoji: '💡', title: 'Inquire Within', text: 'The center node is your starting point. Type a question, click <b>&lt;</b>, or press Enter — the AI responds in tree form. Or just start building your own tree manually.' },
+      { emoji: '💡', title: 'TardMaxx', text: 'The center node is your starting point. Type a question, click <b>&lt;</b>, or press Enter — the AI responds in tree form. Or just start building your own tree manually.' },
       { emoji: '🔍', title: 'Expand & Dive', text: 'Click <b>&lt;</b> on any node to expand with AI synopses. Click <b>🤿</b> for a prose deep dive overlay.' },
       { emoji: '⌨️', title: 'Keyboard Shortcuts', text: '<b>Tab</b> adds a child. <b>Enter</b> adds a sibling. <b>Double-click</b> to edit. <b>Ctrl+S</b> to save. <b>Scroll</b> to zoom.' },
       { emoji: '✅', title: 'You\'re All Set', text: 'Add an API key in <b>Settings (🎨)</b> or in <b>config.js</b>. Groq is fast and cheap. Enjoy!' }
@@ -2796,7 +2796,7 @@ Rules: 3-5 children MAXIMUM. Text must be informative standalone synopses. Notes
     const node = this.mindmap.findNode(nodeId);
     if (!node) return;
     this.modalOverlay.classList.remove('hidden');
-    document.getElementById('modal-title').textContent = 'Inquire Within';
+    document.getElementById('modal-title').textContent = 'TardMaxx';
     document.getElementById('modal-body').innerHTML = `
       <p style="text-align:center;color:var(--text-secondary);font-size:12px;margin-bottom:8px;">Exploring: <b>${this._escapeHTML(node.text)}</b></p>
       <textarea id="ai-expand-prompt" rows="3" placeholder="What do you want to know about this?" style="width:100%;padding:12px;border:1px solid var(--border-color);border-radius:8px;background:var(--bg-primary);color:var(--text-primary);font-size:14px;font-family:var(--font-sans);resize:vertical;line-height:1.5;"></textarea>

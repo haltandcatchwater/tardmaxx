@@ -1,4 +1,4 @@
-# Inquire Within
+# TardMaxx
 
 A mind mapping tool for structuring thoughts and projects — with optional AI that responds in tree form so you can explore, prune, and expand. Works great as a standalone mind mapper: no API key required, zero dependencies, just open the file and start organizing.
 
@@ -28,7 +28,7 @@ That's it. No install, no server, no account. For AI features, copy `config.exam
 - Click 🤿 for a prose deep dive overlay
 - Switch models in the sidebar (Groq, DeepSeek, Claude, GPT-4o)
 - AI responses become part of your map — you edit, delete, and build on them
-- Use **Inquire Within** to generate an entire map from a prompt
+- Use **TardMaxx** to generate an entire map from a prompt
 
 ## Keyboard Shortcuts
 

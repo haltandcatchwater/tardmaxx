@@ -1,7 +1,7 @@
 {
-  "name": "Inquire Within — Mind Map",
-  "short_name": "Inquire Within",
-  "description": "First-principles mind mapping with AI-powered deep dives",
+  "name": "TardMaxx",
+  "short_name": "TardMaxx",
+  "description": "Mind mapping tool for structuring thoughts and projects — with optional AI expansion",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "any",
