@@ -5,7 +5,7 @@ A first-principles mind mapping tool where every node is an AI endpoint. Double-
 ## Quick Start
 
 1. Download and unzip
-2. Copy `config.example.js` to `config.js` and add an API key (Groq is free and fast)
+2. Copy `config.example.js` to `config.js` and add an API key (Groq is fast and cheap)
 3. Open `index.html` in any browser
 4. Start typing in the center node, or click **Inquire Within** in the sidebar
 

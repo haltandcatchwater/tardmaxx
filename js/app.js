@@ -1814,6 +1814,11 @@ class App {
     this._updateAll();
     this.fitToView();
     this._clearModified();
+    // Show walkthrough on first visit
+    if (!localStorage.getItem('mindmap-walkthrough-done')) {
+      setTimeout(() => this._showWalkthrough(), 500);
+    }
+
     // Auto-edit root — "Inquire Within" with blinking cursor, clears on first input
     setTimeout(() => {
       this.startInlineEdit(this.mindmap.root.id);
@@ -2741,6 +2746,47 @@ Rules: 3-5 children MAXIMUM. Text must be informative standalone synopses. Notes
     if (!resp.ok) { const err = await resp.json().catch(() => ({})); throw new Error(err.error?.message || 'API error'); }
     const data = await resp.json();
     return data.choices[0].message.content;
+  }
+
+  _showWalkthrough() {
+    const steps = [
+      { emoji: '👋', title: 'Your Command Center', text: 'Create, save, and manage mind maps from the sidebar. Switch AI models at the bottom.' },
+      { emoji: '💡', title: 'Inquire Within', text: 'The center node is your starting point. Type a question and press Enter — the AI responds in tree form.' },
+      { emoji: '🔍', title: 'Expand & Dive', text: 'Click <b>&lt;</b> on any node to expand with AI synopses. Click <b>🤿</b> for a prose deep dive overlay.' },
+      { emoji: '⌨️', title: 'Keyboard Shortcuts', text: '<b>Tab</b> adds a child. <b>Enter</b> adds a sibling. <b>Double-click</b> to edit. <b>Ctrl+S</b> to save. <b>Scroll</b> to zoom.' },
+      { emoji: '✅', title: 'You\'re All Set', text: 'Add an API key in <b>Settings (🎨)</b> or in <b>config.js</b>. Groq is fast and cheap. Enjoy!' }
+    ];
+    let step = 0;
+    const render = () => {
+      const s = steps[step];
+      const old = document.getElementById('walkthrough-overlay');
+      if (old) old.remove();
+      const overlay = document.createElement('div');
+      overlay.id = 'walkthrough-overlay';
+      overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;display:flex;align-items:center;justify-content:center;';
+      overlay.innerHTML = `
+        <div style="background:var(--bg-secondary);border-radius:12px;padding:28px 32px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.4);text-align:center;">
+          <div style="font-size:40px;margin-bottom:8px;">${s.emoji}</div>
+          <h2 style="margin:0 0 8px;font-size:18px;">${s.title}</h2>
+          <p style="color:var(--text-secondary);font-size:13px;line-height:1.5;margin:0 0 20px;">${s.text}</p>
+          <div style="display:flex;gap:8px;justify-content:center;">
+            ${step > 0 ? '<button class="btn" id="wt-prev">Back</button>' : ''}
+            <button class="btn primary" id="wt-next">${step < steps.length - 1 ? 'Next' : 'Got it'}</button>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:4px;justify-content:center;">${steps.map((_,i) => `<span style="width:6px;height:6px;border-radius:50%;background:${i===step?'var(--accent)':'var(--border-color)'};"></span>`).join('')}</div>
+          <button style="margin-top:12px;background:none;border:none;color:var(--text-muted);font-size:11px;cursor:pointer;" id="wt-skip">Skip tour</button>
+        </div>`;
+      document.body.appendChild(overlay);
+      const done = () => { overlay.remove(); localStorage.setItem('mindmap-walkthrough-done', '1'); };
+      document.getElementById('wt-next').addEventListener('click', () => {
+        if (step < steps.length - 1) { step++; render(); }
+        else { done(); }
+      });
+      const prevBtn = document.getElementById('wt-prev');
+      if (prevBtn) prevBtn.addEventListener('click', () => { step--; render(); });
+      document.getElementById('wt-skip').addEventListener('click', done);
+    };
+    render();
   }
 
   /** Show a prompt dialog for AI expanding a specific node */
