@@ -1365,10 +1365,14 @@ class InteractionManager {
     else if (e.key === 'Tab') {
       e.preventDefault();
       if (!app.selectedNodeId) {
-        // No selection — add child to root as fallback
         app.selectNode(app.mindmap.root.id);
       }
+      const before = app.mindmap.countNodes();
       app.addChildNode();
+      const after = app.mindmap.countNodes();
+      if (after <= before) {
+        app.toast('Tab: child not added — parent ID: ' + (app.selectedNodeId || 'null'), 'warning');
+      }
     }
     else if (e.key === 'Enter') { e.preventDefault(); app.addSiblingNode(); }
     else if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); app.deleteSelectedNode(); }
