@@ -1935,13 +1935,9 @@ class App {
     svgEl.addEventListener('keydown', (e) => {
       if (!e.target.hasAttribute || !e.target.hasAttribute('data-editing-node-id')) return;
       if (e.key === 'Enter' && !e.shiftKey) {
-        // Enter while editing = commit + AI expand. Shift+Enter = new line.
+        // Enter = commit edit (save text). Shift+Enter = new line. Use < for AI.
         e.preventDefault();
-        const editingId = this.renderer.editingNodeId;
         this._finishInlineEdit();
-        if (editingId) {
-          setTimeout(() => { this.selectNode(editingId); this._aiExpandLeafNode(editingId); }, 120);
-        }
       } else if (e.key === 'Escape') {
         e.preventDefault();
         this._cancelInlineEdit();
