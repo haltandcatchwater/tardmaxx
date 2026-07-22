@@ -43,4 +43,4 @@ The folder IS the app. Zip it and email it. Delete `config.js` before sharing â€
 
 ## License
 
-MIT
+**PolyForm Shield** â€” Free for personal, academic, and non-commercial use. Businesses using this tool to generate revenue need a commercial license. Contact the repo owner for terms.
