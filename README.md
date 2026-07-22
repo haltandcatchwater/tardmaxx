@@ -35,7 +35,7 @@ A first-principles mind mapping tool where every node is an AI endpoint. Double-
 
 ## API Keys
 
-Get a free API key from [Groq](https://console.groq.com) (fast, cheap — good for testing). Paste it into `config.js` on the first profile line. More keys for other providers go in the same file or in Settings (🎨).
+Get an API key from [Groq](https://console.groq.com) (fast, dirt cheap — fractions of a cent per request). Paste it into `config.js` on the first profile line. More keys for other providers go in the same file or in Settings (🎨).
 
 ## Sharing
 
