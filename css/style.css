@@ -316,6 +316,11 @@ html, body {
 }
 
 .mm-dive-wrap {
+  pointer-events: none;
+}
+.mm-dive-ring circle,
+.mm-dive-wrap > g path {
+  pointer-events: auto;
   cursor: pointer;
 }
 .mm-dive-wrap:hover .mm-dive-ring circle {

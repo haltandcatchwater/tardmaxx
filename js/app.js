@@ -2694,7 +2694,6 @@ Rules: 3-5 children MAXIMUM. Text must be informative standalone synopses. Notes
 
   /** Deep dive — shows prose response in an overlay panel */
   async _startDeepDive(nodeId) {
-    console.trace('_startDeepDive called from');
     const node = this.mindmap.findNode(nodeId);
     if (!node) return;
     const profile = this._activeProfile();
