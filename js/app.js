@@ -792,8 +792,8 @@ class SVGRenderer {
 
     // Deep dive — diving mask + ring, both light up together
     {
-      const cx = pos.x + pos.w - 10;
-      const cy = pos.y + 10;
+      const cx = pos.x + pos.w - 12;
+      const cy = pos.y + 12;
       const wrap = this._svgEl('g', {
         class: 'mm-dive-wrap',
         'data-action': 'deep-dive',
