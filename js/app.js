@@ -62,7 +62,7 @@ const ZOOM_WHEEL_FACTOR = 0.001;
 class MindMapData {
   constructor(title) {
     this.title = title || 'Untitled';
-    this.root = this._createNode('TardMaxx');
+    this.root = this._createNode('Inquire Within');
     this.autoLayoutEnabled = true;
     this.createdAt = new Date().toISOString();
     this.updatedAt = new Date().toISOString();
@@ -454,7 +454,7 @@ class SVGRenderer {
     this._renderNode(mindmap.root, positions, selectedId, mindmap);
 
     // On fresh map with "TardMaxx", show the quote above the root
-    if (mindmap.root.text === 'TardMaxx' && mindmap.root.children.length === 0) {
+    if (mindmap.root.text === 'Inquire Within' && mindmap.root.children.length === 0) {
       const rootPos = positions.get(mindmap.root.id);
       if (rootPos) {
         const quoteEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -1100,7 +1100,7 @@ class InteractionManager {
       this.app.selectNode(hitId);
       // Don't start drag on initial placeholder root — it auto-edits on click
       const isPlaceholderRoot = hitId === this.app.mindmap.root.id &&
-        this.app.mindmap.root.text === 'TardMaxx' &&
+        this.app.mindmap.root.text === 'Inquire Within' &&
         this.app.mindmap.root.children.length === 0;
       if (!isPlaceholderRoot) {
         this._startDrag(e, hitId);
@@ -1831,7 +1831,7 @@ class App {
       const rootId = this.mindmap.root.id;
       setTimeout(() => {
         const div = document.querySelector('[data-editing-node-id="' + rootId + '"]');
-        if (div && div.textContent === 'TardMaxx') {
+        if (div && div.textContent === 'Inquire Within') {
           // Place cursor at the end of "TardMaxx"
           const range = document.createRange();
           range.setStartAfter(div.lastChild || div);
@@ -1841,7 +1841,7 @@ class App {
           sel.addRange(range);
           // One-time handler: clear placeholder on first interaction
           const clear = () => {
-            if (div.textContent === 'TardMaxx') div.textContent = '';
+            if (div.textContent === 'Inquire Within') div.textContent = '';
             div.removeEventListener('keydown', clear);
             div.removeEventListener('mousedown', clear);
           };
@@ -2053,18 +2053,18 @@ class App {
       if (newEl) newEl.classList.add('selected');
     }
     // Single-click on initial "TardMaxx" root → start editing, clears on input
-    if (id === this.mindmap.root.id && this.mindmap.root.text === 'TardMaxx' && this.mindmap.root.children.length === 0) {
+    if (id === this.mindmap.root.id && this.mindmap.root.text === 'Inquire Within' && this.mindmap.root.children.length === 0) {
       setTimeout(() => {
         this.startInlineEdit(id);
         setTimeout(() => {
           const div = document.querySelector('[data-editing-node-id="' + id + '"]');
-          if (div && div.textContent === 'TardMaxx') {
+          if (div && div.textContent === 'Inquire Within') {
             const range = document.createRange();
             range.setStartAfter(div.lastChild || div);
             range.collapse(true);
             const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
             const clear = () => {
-              if (div.textContent === 'TardMaxx') div.textContent = '';
+              if (div.textContent === 'Inquire Within') div.textContent = '';
               div.removeEventListener('keydown', clear);
               div.removeEventListener('mousedown', clear);
             };
