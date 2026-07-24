@@ -819,9 +819,20 @@ class SVGRenderer {
         d: 'M 8 28 C 4 12, 60 12, 56 28',
         fill: 'none', stroke: 'rgba(255,255,255,0.35)', 'stroke-width': '2.5', 'stroke-linecap': 'round'
       });
+      // Bubbles below mask — animate upward when thinking
+      const bubbles = this._svgEl('g', { class: 'mm-dive-bubbles' });
+      [{dx:-4, dy:8, r:1.2, d:0}, {dx:2, dy:12, r:0.8, d:0.3}, {dx:-1, dy:16, r:1.5, d:0.6}].forEach(b => {
+        const bubble = this._svgEl('circle', {
+          cx: cx + b.dx, cy: cy + b.dy, r: b.r,
+          fill: 'none', stroke: 'rgba(255,255,255,0.25)', 'stroke-width': '0.8'
+        });
+        bubble.style.animationDelay = b.d + 's';
+        bubbles.appendChild(bubble);
+      });
       mask.appendChild(strap);
       mask.appendChild(frame);
       wrap.appendChild(mask);
+      wrap.appendChild(bubbles);
       g.appendChild(wrap);
     }
 

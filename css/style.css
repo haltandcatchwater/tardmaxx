@@ -331,6 +331,19 @@ html, body {
 .mm-dive-ring.spinning circle {
   stroke: rgba(255,255,255,0.6);
 }
+/* Bubbles rise when mask is thinking */
+.mm-dive-bubbles circle {
+  opacity: 0;
+}
+.mm-dive-ring.spinning ~ .mm-dive-bubbles circle {
+  animation: bubble-rise 2s ease-out infinite;
+}
+@keyframes bubble-rise {
+  0% { opacity: 0; transform: translateY(0); }
+  20% { opacity: 0.6; }
+  80% { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(-12px); }
+}
 @keyframes dive-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
