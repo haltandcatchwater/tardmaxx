@@ -647,31 +647,6 @@ class SVGRenderer {
         pointer-events:none;
       `;
       div.appendChild(fade);
-      // Expand button
-      const expandBtn = document.createElementNS('http://www.w3.org/1999/xhtml', 'button');
-      expandBtn.textContent = 'Read more';
-      expandBtn.style.cssText = `
-        position:absolute; bottom:2px; right:4px;
-        background:rgba(255,255,255,0.15); color:#fff; border:1px solid rgba(255,255,255,0.25);
-        border-radius:3px; padding:1px 5px; font-size:8px; cursor:pointer;
-        font-family:inherit; z-index:1;
-      `;
-      expandBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        const fullText = node.notes || node.text;
-        const panel = document.getElementById('dive-panel');
-        const body = document.getElementById('dive-panel-body');
-        document.getElementById('dive-panel-title').textContent = node.text;
-        body.innerHTML = '<div style="max-width:700px;margin:0 auto;">' +
-          fullText.split('\n').map(line =>
-            line.startsWith('#') ? `<h3>${line.replace(/^#+\s*/, '')}</h3>` :
-            line.startsWith('- ') ? `<li>${line.slice(2)}</li>` :
-            line.trim() === '' ? '<br>' : `<p>${line}</p>`
-          ).join('') + '</div>';
-        panel.classList.add('open');
-      });
-      div.appendChild(expandBtn);
       fo.appendChild(div);
       g.appendChild(fo);
     } else if (node._deepDive) {
