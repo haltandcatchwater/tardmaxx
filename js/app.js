@@ -1830,6 +1830,11 @@ class App {
     this._updateAll();
     this.fitToView();
     this._clearModified();
+    // Ensure panels start closed — don't leave stale state from previous sessions
+    const divePanel = document.getElementById('dive-panel');
+    if (divePanel) divePanel.classList.remove('open');
+    const propsPanel = document.getElementById('sidebar');
+    if (propsPanel) propsPanel.classList.remove('open');
     // Show walkthrough on first visit
     if (!localStorage.getItem('mindmap-walkthrough-done')) {
       setTimeout(() => this._showWalkthrough(), 500);
