@@ -2105,8 +2105,10 @@ class App {
   }
 
   addChildNode() {
+    // Ensure dive panel is closed — Tab = child, never deep dive
+    const divePanel = document.getElementById('dive-panel');
+    if (divePanel) divePanel.classList.remove('open');
     const parentId = this.selectedNodeId || this.mindmap.root.id;
-    // Auto-expand if parent is collapsed so the new child is visible
     const parent = this.mindmap.findNode(parentId);
     if (parent && parent.collapsed) parent.collapsed = false;
     this._pushUndo();
