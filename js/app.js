@@ -767,6 +767,9 @@ class SVGRenderer {
         'data-action': action,
         'data-node-id': node.id
       });
+      const tip = this._svgEl('title', {});
+      tip.textContent = hasKids ? (isCollapsed ? 'Expand' : 'Collapse') : 'AI Expand';
+      btn.appendChild(tip);
       // SVG path arrow — pixel-perfect, no font centering issues
       const arrow = this._svgEl('path', {
         d: hasKids
@@ -796,6 +799,9 @@ class SVGRenderer {
         'data-action': 'deep-dive',
         'data-node-id': node.id
       });
+      const title = this._svgEl('title', {});
+      title.textContent = 'Deep Dive';
+      wrap.appendChild(title);
       // Spinning ring — wrapped in <g> so rotation is around local origin
       const ringWrap = this._svgEl('g', {
         transform: `translate(${cx},${cy})`
