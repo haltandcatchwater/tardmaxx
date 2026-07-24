@@ -1805,9 +1805,18 @@ class App {
     this._updateAll();
     this.fitToView();
     this._clearModified();
-    // Ensure panels start closed — don't leave stale state from previous sessions
+    // Deep dive panel observer — log when it opens
     const divePanel = document.getElementById('dive-panel');
-    if (divePanel) divePanel.classList.remove('open');
+    if (divePanel) {
+      new MutationObserver((mutations) => {
+        mutations.forEach(m => {
+          if (m.attributeName === 'class' && divePanel.classList.contains('open')) {
+            console.log('Dive panel opened. Stack:', new Error().stack);
+          }
+        });
+      }).observe(divePanel, { attributes: true });
+      divePanel.classList.remove('open');
+    }
     const propsPanel = document.getElementById('sidebar');
     if (propsPanel) propsPanel.classList.remove('open');
     // Show walkthrough on first visit
@@ -2666,7 +2675,6 @@ Rules: 3-5 children MAXIMUM. Text must be informative standalone synopses. Notes
 
   /** Deep dive — shows prose response in an overlay panel */
   async _startDeepDive(nodeId) {
-    console.log('_startDeepDive called for node:', nodeId, new Error().stack);
     const node = this.mindmap.findNode(nodeId);
     if (!node) return;
     const profile = this._activeProfile();
